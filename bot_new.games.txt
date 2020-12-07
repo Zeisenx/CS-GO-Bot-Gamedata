@@ -1,0 +1,225 @@
+"Games"
+{
+	"csgo"
+	{
+        "Offsets"
+        {
+            "CCSBot::m_isFollowing"
+            {
+                //CCSBot::Follow
+                //80 BE 0C 3C 00 00 00                          cmp     byte ptr [esi+3C0Ch], 0
+                "windows"   "15372"
+            }
+            "CCSBot::m_leader"
+            {
+                //CCSBot::Follow
+                //mov     [esi+3BF0h], eax
+                // 4바이트지만 1바이트를 읽으면 player index가 나오는 특징을 발견
+                "windows"   "15344"
+            }
+            
+            "BotState::OnEnter"
+            {
+                "windows"   "0"
+                "linux"     "0" 
+            }
+            "BotState::OnUpdate"
+            {
+                "windows"   "1"
+                "linux"     "1" 
+            }
+            "BotState::GetName"
+            {
+                "windows"   "3"
+                "linux"     "3" 
+            }
+            
+            "EscapeFromFlames::PatchBytes"
+            {
+                "windows"   "5"
+            }
+            
+            "TempTest::PatchBytes"
+            {
+                "windows"   "5"
+            }
+        }
+        
+		"Signatures"
+		{
+            "CCSBot::Update::EscapeFromFlames"
+            {
+                "library"   "server"
+                "windows"   "\x8B\xCB\xE8\x2A\x2A\x2A\x2A\xF3\x0F\x10\x0D\x2A\x2A\x2A\x2A\x0F\x2F\xC8\x76\x2D"
+            }
+            "PickNewAimSpot_TempTest"
+            {
+                "library"   "server"
+                "windows"   "\x8B\x0D\x2A\x2A\x2A\x2A\x8B\x01\xFF\x50\x34\x85\xC0\x74\x19"
+            }
+			"CCSBot::UpdatePathMovement"
+			{
+                // CCSBot::UpdatePathMovement 검색시 바로 있음
+                "library"   "server"
+				"windows"	"\x55\x8B\xEC\x83\xE4\xF0\x83\xEC\x68\x56\x57\x8B\xF9\xF3\x0F\x11\x5C\x24\x28"
+			}
+            "CCSBot::GetRecognizedEnemy"
+            {
+                // CCSBot::UpdateReactionQueue(void) 함수를 호출하고 바로 밑 함수
+                "library"   "server"
+				"windows"	"\x8A\x91\x2A\x2A\x00\x00\x3A\x91\x2A\x2A\x00\x00"
+				// ~ 2020/07/25
+                //"windows"   "\x8A\x91\xC6\x60\x00\x00"
+				
+            }
+			"CCSBot::FindMostDangerousThreat"
+            {
+				"library"	"server"
+                "windows"   "\x55\x8B\xEC\x81\xEC\x2A\x00\x00\x00\x53\x8B\xD9\x8B\x0D\x2A\x2A\x2A\x2A\x56\x57"
+				
+				// ~ 2020-07-25
+				//"windows" 	"\x55\x8B\xEC\x81\xEC\xEC\x00\x00\x00" 
+            }
+			"CCSBot::MoveTo"
+			{
+				// Checking out where our friend was killed 문자열의 다음 2번째 함수
+				"library"	"server"
+				"windows"	"\x55\x8B\xEC\x8B\x55\x08\x8B\x02\x89\x81\x2A\x3D\x00\x00"
+				
+				// ~ Web 작전권 업데이트까지
+				//"windows"	"\x55\x8B\xEC\x8B\x55\x08\x8B\x02\x89\x81\x68\x3C\x00\x00"
+				// ? ~ 2020-03-02
+				//"windows"	"\x55\x8B\xEC\x8B\x55\x08\x8B\x02\x89\x81\xA8\x3C\x00\x00"
+				// 2020-03-02 ~ 2020-11-24
+				//"windows"	"\x55\x8B\xEC\x8B\x55\x08\x8B\x02\x89\x81\x2A\x3C\x00\x00"
+			}
+			"CCSBot::Attack"
+			{
+				// 2018-12-20
+				// sub_1049D410
+				// "Attacking our friend's killer!\n" 문자열의 다음 두번째 함수
+				"library"	"server"
+				"windows"	"\x55\x8B\xEC\x83\x2A\x2A\x56\x57\x8B\x2A\x2A\x8B\xF1\x85\xFF\x0F\x84\x2A\x2A\x2A\x2A"
+			}
+			"CCSBot::ComputePath"
+			{
+				// sub_1047A230
+				// "CCSBot::ComputePath" xref 검색시 나오는 함수
+				"library"	"server"
+				"windows"	"\x55\x8B\xEC\x81\xEC\xB8\x00\x00\x00\x53\x56\x57\x8B\xF9"
+				
+				// 2018-11-08
+				//"windows"	"\x55\x8B\xEC\x83\xE4\xF8\x81\xEC\xA4\x00\x00\x00\x53\x56\x57\x8B\xF9\x8B\x0D\x2A\x2A\x2A\x2A"
+			}
+			"CCSBot::SetBotEnemy"
+			{
+				// 2018-11-08
+				// sub_104602E0
+				// "SetBotEnemy: %s\n" xref 검색시 첫번째 함수
+				"library"	"server"
+				"windows"	"\x55\x8B\xEC\x51\x56\x57\x8B\xF9\x8B\x8F\x2A\x2A\x2A\x2A\x83\x2A\x2A\x74\x2A\x0F\x2A\x2A"
+			}
+			"CCSBot::StopFollowing"
+			{
+				// 2018-10-05
+				// "Stopping following - bored\n" string 위의 call 함수
+				"library"	"server"
+				"windows"	"\xA1\x2A\x2A\x2A\x2A\xC6\x81\x54\x39\x00\x00\x00"
+			}
+			"CCSBot::Follow"
+			{
+				// 2018-10-05
+				// "Auto-Following %s" string의 위의 첫번째 call 함수
+				"library"	"server"
+				"windows"	"\x55\x8B\xEC\x51\x56\x57\x8B\x2A\x2A\x8B\xF1\x85\xFF\x2A\x2A\x2A\x2A\x2A\x2A\x80\xBE\x2A\x2A\x2A\x2A\x2A"
+			}
+			"CCSBot::GetPartPosition"
+			{
+				//CCSBot::GetPartPosition String in function, only 1 calls, without CCSBot::IsVisible string.
+				"library"	"server"
+				"windows"	"\x55\x8B\xEC\x8B\x0D\x2A\x2A\x2A\x2A\x56\x57\x8B\xB9\x2A\x2A\x2A\x2A\x85\xFF\x2A\x2A\x6A\x2A\x6A\x2A\x68\x2A\x2A\x2A\x2A\x6A\x2A\x68\x2A\x2A\x2A\x2A\xFF\x15\x2A\x2A\x2A\x2A\x8B\x0D\x2A\x2A\x2A\x2A"
+			}
+			"CCSBot::HideByPos"
+			{
+				"library"	"server"
+				"windows"	"\x55\x8B\xEC\x83\xE4\xF8\x83\xEC\x08\xF3\x0F\x10\x1D\x2A\x2A\x2A\x2A"
+			}
+			"CCSBot::GuardRandomZone"
+			{
+				"library"	"server"
+				"windows"	"\x55\x8B\xEC\x51\x56\x8B\xF1\xF3\x0F\x11\x4D\xFC\x8B\x0D\x2A\x2A\x2A\x2A"
+			}
+			"CCSBot::TryToRetreat"
+			{
+				//Retreating to a safe spot!
+				"library"	"server"
+				"windows"	"\x55\x8B\xEC\x83\xEC\x14\x83\x3D\x2A\x2A\x2A\x2A\x00"
+			}
+			"CCSBot::TryToHide"
+			{
+				// \x55\x8B\xEC\x83\xE4\xF8\x83\xEC\x30\xA1\x2A\x2A\x2A\x2A
+				// \x55\x8B\xEC\x83\xEC\x2C\x53\x8B\xD9\xF3\x0F\x11\x5D\xFC
+				"library"	"server"
+				"windows"	"\x55\x8B\xEC\x83\xE4\xF8\x83\xEC\x30\xA1\x2A\x2A\x2A\x2A"
+			}
+			"CCSBot::SetState"
+			{
+				// 2018-10-14
+				"library"	"server"
+				"windows"	"\x55\x8B\xEC\x53\x56\x8B\xF1\x57\x8B\x8E\x2A\x3E\x00\x00"
+				
+				// "windows"	"\x55\x8B\xEC\x53\x56\x8B\xF1\x57\x8B\x8E\x14\x3E\x00\x00" 2018-10-14
+				// "windows"	"\x55\x8B\xEC\x53\x56\x8B\xF1\x57\x8B\x8E\x34\x3E\x00\x00" 2020-07-25
+			}
+			"CCSBot::PrintIfWatched"
+			{
+				"library"	"server"
+				"windows"	"\x55\x8B\xEC\x83\xE4\xF8\x8B\x0D\x2A\x2A\x2A\x2A\x81\xEC\x24\x04\x00\x00"
+			}
+			"CCSBot::IsUsingKnife"
+			{
+				// 2018-10-05
+				"library"	"server"
+				"windows"	"\x8B\x2A\x2A\x2A\x2A\x2A\x56\x57\x83\x2A\x2A\x0F\x2A\x2A\x2A\x2A\x2A\x0F\x2A\x2A\xC1\x2A\x2A\x8D\x2A\x2A\x39\x2A\x2A\x2A\x2A\x2A\x2A\x0F\x2A\x2A\x2A\x2A\x2A\x8B\x2A\x2A\x2A\x2A\x2A\x2A\x85"
+			}
+			"CCSBot::IsAtEnemySpawn"
+			{
+				// 2018-10-05
+				"library"	"server"
+				"windows"	"\x55\x8B\xEC\x51\x53\x8B\xD9\xB8\x2A\x2A\x2A\x2A"
+			}
+			"CCSBot::IsVisiblePlayer"
+			{
+				// CCSBot::IsVisible(CCSBot *this, CCSPlayer *, bool, unsigned __int8 *) disassmbler
+				// bool IsVisible( CCSPlayer *player, bool testFOV = false, unsigned char *visParts = NULL ) sourceengine2007
+				// 2018-10-05
+				"library"	"server"
+				"windows"	"\x55\x8B\xEC\x83\xE4\xF8\x83\xEC\x1C\x53\x8B\xD9\x8B\x0D\x2A\x2A\x2A\x2A"
+			}
+			"CCSBot::OnAudiableEvent"
+			{
+				// 2019-09-18
+				// sub_104680D0
+				// "Heard noise (%s from %s, pri %s, time %3.1f)" xref 검색시 나오는 함수
+				"library"	"server"
+				"windows"	"\x55\x8B\xEC\x83\xE4\xF0\x83\xEC\x58\x56\x57\x8B\xF9\xF3\x0F\x11\x5C\x24\x24"
+			}
+            "CCSBot::Update"
+            {
+                // 2020-04-22
+                // "CCSBot::Update" xref 검색시 나오는 함수
+				"library"	"server"
+				"windows"	"\x55\x8B\xEC\x83\xE4\xF8\x83\xEC\x44\x53\x8B\xD9\x8B\x0D\x2A\x2A\x2A\x2A\x56\x57\x8B\x81\x0C\x10\x00\x00"
+				
+				// ~ 2020-12-04
+				//"windows"	"\x55\x8B\xEC\x83\xE4\xF8\x83\xEC\x34\x53\x8B\xD9"
+            }
+            "CCSBot::MoveToInitialEncounter"
+            {
+				"library"	"server"
+                "windows"   "\x55\x8B\xEC\xB8\x4C\x18\x00\x00"
+            }
+		}
+	}
+}
+
