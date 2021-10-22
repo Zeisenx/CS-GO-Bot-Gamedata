@@ -4,6 +4,66 @@
 	{
         "Offsets"
         {
+			"CCSBot::m_morale"
+			{
+				"windows"		"15448"
+			}
+			"CCSBot::m_task"
+			{
+				"windows"		"16028"
+			}
+			"CCSBot::m_nearbyEnemyCount"
+			{
+				"windows"		"24120"
+			}
+			"CCSBot::m_nearbyFriendCount"
+			{
+				"windows"		"24644"
+			}
+			"CCSBot::m_goalPosition"
+			{
+				"windows"		"16044"
+			}
+			"CCSBot::m_path[0]"
+			{
+				"windows"		"16088"
+			}
+			"m_path::pos"
+			{
+				"windows"		"8"
+			}
+			"CCSBot::m_pathLength"
+			{
+				"windows"		"22232"
+			}
+			"CCSBot::m_targetSpot"
+			{
+				//Is inside CCSBot::PickNewAimSpot
+				"windows"       "23984"
+				"linux"			"23996"
+			}
+			"CCSBot::m_pLocalProfile"
+			{
+				//Is inside CCSBot::DebugDisplay right next to the string 'Skill: %d%%'
+				"windows"       "15172"
+				"linux"       	"15184"
+			}
+			"BotProfile::m_aggression"
+			{
+				"windows"       "4"
+				"linux"       	"4"
+			}
+			"BotProfile::m_skill"
+			{
+				//Is inside CCSBot::DebugDisplay right next to the string 'Skill: %d%%'
+				"windows"       "8"
+				"linux"       	"8"
+			}
+			"BotProfile::m_teamwork"
+			{
+				"windows"       "12"
+				"linux"       	"12"
+			}
             "CCSBot::m_isFollowing"
             {
                 //CCSBot::Follow
@@ -32,16 +92,6 @@
             {
                 "windows"   "3"
                 "linux"     "3" 
-            }
-            
-            "EscapeFromFlames::PatchBytes"
-            {
-                "windows"   "5"
-            }
-            
-            "TempTest::PatchBytes"
-            {
-                "windows"   "5"
             }
         }
         
@@ -72,6 +122,13 @@
                 //"windows"   "\x8A\x91\xC6\x60\x00\x00"
 				
             }
+			"CCSBot::PickNewAimSpot"
+			{
+				// Has 'mp_damage_headshot_only' string
+				"library" 	"server"
+				"windows" 	"\x55\x8B\xEC\x83\xE4\xF8\x83\xEC\x20\x56\x8B\xF1\x57\x8B\x8E\x0C\x5E\x00\x00"
+				"linux"		"\x55\x89\xE5\x57\x56\x53\x81\xEC\x9C\x00\x00\x00\x8B\x5D\x08\x8B\x0D\x2A\x2A\x2A\x2A\x8B\x83\x18\x5E\x00\x00"
+			}
 			"CCSBot::FindMostDangerousThreat"
             {
 				"library"	"server"
@@ -180,7 +237,8 @@
 			{
 				// 2018-10-05
 				"library"	"server"
-				"windows"	"\x8B\x2A\x2A\x2A\x2A\x2A\x56\x57\x83\x2A\x2A\x0F\x2A\x2A\x2A\x2A\x2A\x0F\x2A\x2A\xC1\x2A\x2A\x8D\x2A\x2A\x39\x2A\x2A\x2A\x2A\x2A\x2A\x0F\x2A\x2A\x2A\x2A\x2A\x8B\x2A\x2A\x2A\x2A\x2A\x2A\x85"
+				//"windows"	"\x8B\x2A\x2A\x2A\x2A\x2A\x56\x57\x83\x2A\x2A\x0F\x2A\x2A\x2A\x2A\x2A\x0F\x2A\x2A\xC1\x2A\x2A\x8D\x2A\x2A\x39\x2A\x2A\x2A\x2A\x2A\x2A\x0F\x2A\x2A\x2A\x2A\x2A\x8B\x2A\x2A\x2A\x2A\x2A\x2A\x85"
+				"windows"	"\x8B\x89\x54\x09\x00\x00\x56\x57\x83\xF9\xFF\x0F\x84\x2A\x2A\x2A\x2A\x0F\xB7\xC1\x8D\x04\x40\x8D\x34\xC5\x2A\x2A\x2A\x2A\x85\xF6\x0F\x84\x2A\x2A\x2A\x2A\xC1\xE9\x10\x39\x4E\x04\x0F\x85\x2A\x2A\x2A\x2A\x8B\x36\x85\xF6\x0F\x84\x2A\x2A\x2A\x2A\xE8\x2A\x2A\x2A\x2A\x8B\x78\x30\x39\x3D\x2A\x2A\x2A\x2A\x74\x2A\xE8\x2A\x2A\x2A\x2A\xFF\x35\x2A\x2A\x2A\x2A\x8D\x48\x04\x8B\x01\xFF\x90\xA8\x00\x00\x00\xA3\x2A\x2A\x2A\x2A\x89\x3D\x2A\x2A\x2A\x2A\xEB\x2A\xA1\x2A\x2A\x2A\x2A\x39\x86\xA4\x0A\x00\x00\x74\x2A"
 			}
 			"CCSBot::IsAtEnemySpawn"
 			{
@@ -222,4 +280,3 @@
 		}
 	}
 }
-
